@@ -41,3 +41,4 @@ This project is licensed under the MIT License.
 ## Acknowledgments
 
 - HTML5 Canvas documentation: [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API)
+- ChatGPT 4o: [ChatGPT](https://chatgpt.com/)
