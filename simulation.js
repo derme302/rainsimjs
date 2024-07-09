@@ -6,10 +6,11 @@ const person = {
     y: 500,
     width: 50,
     height: 100,
-    speed: 6,
+    speed: 3,
     rainHit: 0,
     iteration: 0,
-    maxIterations: 2000
+    minIterations: 200, // Need to allow time for the rain to fall!
+    maxIterations: 3800
 };
 
 const rainDrops = [];
