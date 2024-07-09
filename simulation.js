@@ -9,8 +9,9 @@ const person = {
     speed: 3,
     rainHit: 0,
     iteration: 0,
-    minIterations: 200, // Need to allow time for the rain to fall!
-    maxIterations: 3800
+    currentCrossing: 0,
+    minCrossings: 2, // Need to allow time for the rain to fall!
+    maxCrossings: 12
 };
 
 const rainDrops = [];
@@ -41,9 +42,10 @@ function updateRainDrops() {
         }
         if (drop.x > person.x && drop.x < person.x + person.width &&
             drop.y + drop.height > person.y && drop.y < person.y + person.height) {
-            if (person.iteration < person.maxIterations)
+            if (person.currentCrossing > person.minCrossings && person.currentCrossing < person.maxCrossings) {
                 person.rainHit += 1;
-            rainDrops.splice(index, 1);
+                rainDrops.splice(index, 1);
+            }
         }
     });
 }
@@ -64,17 +66,21 @@ function updatePerson() {
     person.x += person.speed;
     if (person.x > canvas.width) {
         person.x = -person.width;
+
+        if (person.currentCrossing < person.maxCrossings)
+            person.currentCrossing++;
     }
 
-    if (person.iteration < person.maxIterations)
-        person.iteration++;
+    person.iteration++;
 }
 
 function drawRainHitCount() {
     ctx.fillStyle = 'black';
     ctx.font = '20px Arial';
-    ctx.fillText(`Rain Hit: ${person.rainHit}`, 10, 30);
-    ctx.fillText(`Iteration: ${person.iteration}`, 240, 30);
+    ctx.fillText(`Rain Drops Hit: ${person.rainHit}`, 10, 30);
+    ctx.fillText(`Number of crossings: ${person.currentCrossing}`, 240, 30);
+    ctx.fillText(`Person Velocity: ${person.speed}`, 10, 60);
+    ctx.fillText(`Iteration: ${person.iteration}`, 240, 60);
 }
 
 function gameLoop() {
